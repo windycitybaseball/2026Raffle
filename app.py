@@ -247,6 +247,9 @@ def checkout(request: Request, slug: str = Form(...), tier_id: int = Form(...),
     if DEMO_MODE and PUBLIC_PREVIEW and not request.session.get('admin'):
         raise HTTPException(403, 'This public preview does not accept orders. Admins may run private simulated checkouts.')
     throttle(request)
+    seller = ' '.join(seller.split())[:120]
+    if len(seller.split()) < 2:
+        raise HTTPException(400, 'Enter the full first and last name of the Windy City player to credit.')
     name, email = name.strip()[:120], email.strip().lower()[:254]
     if len(name) < 2 or '@' not in email or len(email)<5 or rules_agree != 'yes':
         raise HTTPException(400, 'Enter your name, email and accept the rules.')
