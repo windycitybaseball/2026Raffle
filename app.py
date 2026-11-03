@@ -140,7 +140,7 @@ def init_db():
                 'Before any real campaign, insert the official rules, eligibility conditions, license information and any required disclosures.', now()))
             rid = db.execute('SELECT id FROM raffles WHERE slug=?', ('windy-city-team-fundraiser',)).fetchone()['id']
             db.executemany('INSERT INTO tiers(raffle_id,quantity,price_cents) VALUES(?,?,?)',
-                           [(rid,q,p) for q,p in ((1,1000),(5,4000),(10,7500),(25,17500),(50,30000),(100,50000))])
+                           [(rid,q,p) for q,p in ((1,1000),(5,4500),(10,8500),(25,20000),(50,35000),(100,50000))])
 
 
     with database() as db:
@@ -153,6 +153,12 @@ def init_db():
                     updates[key] = updated
             if updates:
                 db.execute('UPDATE raffles SET ' + ', '.join(k + '=?' for k in updates) + ' WHERE id=?', [*updates.values(), row['id']])
+
+
+    with database() as db:
+        db.executemany(
+            "UPDATE tiers SET price_cents=? WHERE quantity=? AND raffle_id IN (SELECT id FROM raffles WHERE slug='windy-city-team-fundraiser')",
+            [(1000,1),(4500,5),(8500,10),(20000,25),(35000,50),(50000,100)])
 
 init_db()
 
