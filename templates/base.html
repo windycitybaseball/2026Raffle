@@ -9,7 +9,7 @@
 </head>
 <body>
 <header class="club-header"><a href="/" aria-label="Windy City home"><img class="baseball-logo" src="/static/baseball-logo.jpg" alt="Windy City Baseball Club"><img src="/static/softball-logo.png" alt="Windy City Softball Club"></a></header>
-{% if demo %}<div class="demo-banner"><span class="demo-pill">{{"PUBLIC PREVIEW" if public_preview else "DEMO MODE"}}</span> {{"No ticket sales or real payments are available. The organizer can privately test simulated checkouts." if public_preview else "This is a functioning test site. No money is collected, and all checkouts are simulated."}}</div>{% elif not live %}<div class="demo-banner warn">Paid ticket checkout is disabled until legal and payment processor approvals are configured.</div>{% endif %}
+{% if request.url.path != '/' and not request.url.path.startswith('/r/') %}{% if demo %}<div class="demo-banner"><span class="demo-pill">{{"PUBLIC PREVIEW" if public_preview else "DEMO MODE"}}</span> {{"No ticket sales or real payments are available. The organizer can privately test simulated checkouts." if public_preview else "This is a functioning test site. No money is collected, and all checkouts are simulated."}}</div>{% elif not live %}<div class="demo-banner warn">Paid ticket checkout is disabled until legal and payment processor approvals are configured.</div>{% endif %}{% endif %}
 <main>{% block content %}{% endblock %}</main>
 
 <script src="/static/app.js" defer></script>
