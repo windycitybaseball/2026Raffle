@@ -1,9 +1,13 @@
-{% extends 'base.html' %}
-{% block title %}Windy City Fundraising — Campaigns{% endblock %}
-{% block content %}
-<section class="hero hero-home"><div class="shell hero-grid"><div><div class="eyebrow">TEAM FUNDRAISING, MADE SIMPLE</div><h1>Big prizes.<br><span>Better futures.</span></h1><p>Support the players, programs and opportunities that matter. Explore our campaigns and see the prizes up for grabs.</p><a class="btn btn-light" href="#campaigns">Explore campaigns <span>↗</span></a></div><div class="hero-art"><span class="art-orbit orbit-one"></span><span class="art-orbit orbit-two"></span><div class="art-ball">WC</div><div class="hero-floating float-top">YOUR TEAM.<br>YOUR MOMENT.</div><div class="hero-floating float-bottom">RAISE MORE. <span>GIVE BACK.</span></div></div></div></section>
-<section class="shell section" id="campaigns"><div class="section-heading"><div><div class="eyebrow eyebrow-dark">OUR CAMPAIGNS</div><h2>Fundraisers</h2></div><p>Choose a campaign to view prizes and ticket options.</p></div>
-  <div class="campaign-grid">{% for r in raffles %}<a class="campaign-card" href="/r/{{r.slug}}"><div class="campaign-visual">{% if r.prize_image_url %}<img src="{{r.prize_image_url}}" alt="{{r.prize_title}}">{% else %}<div class="placeholder-prize"><span>★</span><small>GRAND PRIZE</small></div>{% endif %}<span class="floating-status">{{'Entries open' if r.status=='active' else r.status|title}}</span></div><div class="campaign-body"><small>{{r.organization}}</small><h3>{{r.title}}</h3><p>{{r.subtitle}}</p><span class="inline-link">View fundraiser <span>→</span></span></div></a>{% else %}<div class="empty">No campaigns yet. An organizer can create one from the dashboard.</div>{% endfor %}</div>
-</section>
-<section class="shell how-section"><div class="section-heading"><div><div class="eyebrow eyebrow-dark">HOW IT WORKS</div><h2>Simple from start to finish</h2></div></div><div class="steps"><div><span>01</span><h3>Pick a package</h3><p>Choose how many tickets you want.</p></div><div><span>02</span><h3>Secure checkout</h3><p>Complete checkout when a campaign is authorized and open.</p></div><div><span>03</span><h3>Get ticket numbers</h3><p>Keep your entry confirmation for the drawing.</p></div></div></section>
-{% endblock %}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<title>Windy City Baseball &amp; Softball Club</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fff}main{min-height:100svh;display:flex;align-items:center;justify-content:center;gap:clamp(24px,5vw,80px);padding:40px 24px}img{display:block;width:min(38vw,400px);height:auto;object-fit:contain}.baseball{width:min(48vw,510px)}@media(max-width:600px){main{flex-direction:column;gap:20px;padding:24px}img{width:min(70vw,300px)}.baseball{width:min(90vw,385px)}}
+</style>
+</head>
+<body><main aria-label="Windy City Baseball and Softball Club"><img class="baseball" src="/static/baseball-logo.jpg" alt="Windy City Baseball Club"><img src="/static/softball-logo.png" alt="Windy City Softball Club"></main></body>
+</html>
