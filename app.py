@@ -131,7 +131,7 @@ def init_db():
             db.execute('''INSERT INTO raffles(slug,title,subtitle,organization,description,prize_title,
                         prize_description,goal_cents,status,closes_at,draw_at,rules,created_at)
                         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)''', (
-                'windy-city-team-fundraiser', 'Windy City Team Fundraiser',
+                'windy-city-team-fundraiser', 'Windy City Team Raffle',
                 'Support our players. Every entry makes a difference.', 'Windy City Baseball & Softball',
                 'Support player development, equipment, training, and travel. This is an illustrative demo campaign.',
                 'Grand Prize Package', 'Add your real prize photos, descriptions, terms and drawing details in the admin dashboard.',
@@ -141,6 +141,18 @@ def init_db():
             rid = db.execute('SELECT id FROM raffles WHERE slug=?', ('windy-city-team-fundraiser',)).fetchone()['id']
             db.executemany('INSERT INTO tiers(raffle_id,quantity,price_cents) VALUES(?,?,?)',
                            [(rid,q,p) for q,p in ((1,1000),(5,4000),(10,7500),(25,17500),(50,30000),(100,50000))])
+
+
+    with database() as db:
+        for row in db.execute('SELECT * FROM raffles').fetchall():
+            updates = {}
+            for key in ('title', 'subtitle', 'description', 'prize_title', 'prize_description', 'rules', 'license_note'):
+                value = row[key]
+                updated = value.replace('Fundraisers', 'Raffles').replace('fundraisers', 'raffles').replace('FUNDRAISERS', 'RAFFLES').replace('Fundraiser', 'Raffle').replace('fundraiser', 'raffle').replace('FUNDRAISER', 'RAFFLE')
+                if updated != value:
+                    updates[key] = updated
+            if updates:
+                db.execute('UPDATE raffles SET ' + ', '.join(k + '=?' for k in updates) + ' WHERE id=?', [*updates.values(), row['id']])
 
 init_db()
 
