@@ -1,0 +1,31 @@
+# Render Blueprint for a PRIVATE TEST / PUBLIC READ-ONLY PREVIEW.
+# NOT authorized for real paid raffle ticket sales.
+services:
+  - type: web
+    name: windy-city-raffle-preview
+    runtime: docker
+    plan: 0.5c-512mb
+    region: ohio
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    disk:
+      name: raffle-test-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DATA_DIR
+        value: /var/data
+      - key: DEMO_MODE
+        value: '1'
+      - key: PUBLIC_PREVIEW
+        value: '1'
+      - key: ENABLE_LIVE_PAYMENTS
+        value: '0'
+      - key: RAFFLE_LEGAL_APPROVED
+        value: '0'
+      - key: PROCESSOR_APPROVED
+        value: '0'
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ADMIN_PASSWORD
+        sync: false
