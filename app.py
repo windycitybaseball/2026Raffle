@@ -390,9 +390,19 @@ def send_order_email(order_id):
     msg=EmailMessage()
     msg['To']=row['email'];msg['From']=os.getenv('SMTP_FROM','noreply@example.com')
     msg['Subject']='Your raffle ticket confirmation'
-    msg.set_content(f"Thank you, {row['name']}!\n\nCampaign: {raff['title']}\n"
-                    f"Order: {order_id}\nTickets: {', '.join(str(x['ticket_number']) for x in entry)}\n"
-                    f"Total: {money(row['amount_cents'])}\n\nPlease save this confirmation.")
+    msg.set_content(
+        f"Thank you, {row['name']}!\n\nYour Windy City raffle purchase is confirmed.\n\n"
+        f"Raffle: {raff['title']}\nOrder: {order_id}\n"
+        f"Ticket quantity: {row['quantity']}\n"
+        f"Ticket numbers: {', '.join(str(x['ticket_number']) for x in entry)}\n"
+        f"Total paid: {money(row['amount_cents'])}\n\n"
+        f"Name: {row['name']}\nEmail: {row['email']}\n"
+        f"Phone: {row['phone'] or 'Not provided'}\n"
+        f"Player credited: {row['seller']}\n\n"
+        "Drawing: December 20, 2026 on Facebook Live.\n"
+        "Questions? info@gowindycitybaseball.com\n\n"
+        f"Private receipt: {PUBLIC_BASE_URL}/order/{order_id}\n"
+        "Save this email and keep your receipt link private.")
     try:
         with smtplib.SMTP(smtp_host,int(os.getenv('SMTP_PORT','587')),timeout=10) as s:
             s.starttls()
