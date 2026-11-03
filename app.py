@@ -160,6 +160,11 @@ def init_db():
             "UPDATE tiers SET price_cents=? WHERE quantity=? AND raffle_id IN (SELECT id FROM raffles WHERE slug='windy-city-team-fundraiser')",
             [(1000,1),(4500,5),(8500,10),(20000,25),(35000,50),(50000,100)])
 
+
+    with database() as db:
+        db.execute("UPDATE raffles SET description=?, closes_at=?, draw_at=? WHERE slug='windy-city-team-fundraiser'",
+                   ("We are excited to announce the annual Windy City Raffle for the baseball and softball program. The raffle is a way for all of us to have some fun as we close out 2026. Below is a description of how the raffle will work. The raffle is a great way for everyone to win great prizes. For the raffle to work, we would like participation from everyone at all levels of the organization - 8u to 18u families and coaches.\n\nHOW THE RAFFLE WORKS\n\nEach ticket is priced at $10. Prizes will include a GRAND PRIZE of $2,500, cash prizes, and gift baskets as well as some special items. On December 21, raffle tickets will be drawn and prizes dispersed.\n\nAdditionally, players that sell the most tickets will win separate prizes. Supporting your player will help them win prizes and more!\n\nPlease remember to include the full name ONLY of the Windy City player/family that sold your tickets.", '2026-12-19T23:59', '2026-12-21'))
+
 init_db()
 
 def page(request, template, **ctx):
