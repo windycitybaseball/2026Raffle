@@ -5,18 +5,13 @@
 <meta name="theme-color" content="#101217">
 <title>{% block title %}Windy City | Fundraising{% endblock %}</title>
 <link rel="stylesheet" href="/static/style.css">
+<style>:root{--lime:#38b6e3}.club-header{background:white;border-bottom:1px solid #e5e8ed;padding:16px 20px}.club-header a{display:flex;align-items:center;justify-content:center;gap:24px}.club-header img{width:100px;height:100px;object-fit:contain}.club-header img.baseball-logo{width:128px;height:128px}.campaign-head{background:#101217}.campaign-head h1{font-size:clamp(40px,6vw,72px)}@media(max-width:600px){.club-header{padding:8px 16px}.club-header img{width:72px;height:72px}.club-header img.baseball-logo{width:92px;height:92px}}</style>
 </head>
 <body>
-<div class="topline"></div>
-<header class="site-header">
-  <div class="shell nav">
-    <a class="brand" href="/" aria-label="Home"><span class="brand-mark">WC<span class="brand-dot">.</span></span><span class="brand-text"><strong>WINDY CITY</strong><small>FUNDRAISING</small></span></a>
-    <nav aria-label="Main navigation"><a href="/">Campaigns</a><a href="/admin">Organizer dashboard</a></nav>
-  </div>
-</header>
+<header class="club-header"><a href="/" aria-label="Windy City home"><img class="baseball-logo" src="/static/baseball-logo.jpg" alt="Windy City Baseball Club"><img src="/static/softball-logo.png" alt="Windy City Softball Club"></a></header>
 {% if demo %}<div class="demo-banner"><span class="demo-pill">{{"PUBLIC PREVIEW" if public_preview else "DEMO MODE"}}</span> {{"No ticket sales or real payments are available. The organizer can privately test simulated checkouts." if public_preview else "This is a functioning test site. No money is collected, and all checkouts are simulated."}}</div>{% elif not live %}<div class="demo-banner warn">Paid ticket checkout is disabled until legal and payment processor approvals are configured.</div>{% endif %}
 <main>{% block content %}{% endblock %}</main>
-<footer class="site-footer"><div class="shell footer-inner"><div><strong>WINDY CITY</strong><p>Independent fundraising website starter. Not affiliated with Raffle Creator.</p></div><div>Built for simple ticket packages, secure records & transparent drawings.<p>Only run a real raffle after confirming legal eligibility and payment-provider approval.</p></div></div></footer>
+
 <script src="/static/app.js" defer></script>
 </body>
 </html>
