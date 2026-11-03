@@ -135,7 +135,7 @@ def init_db():
                 'Support our players. Every entry makes a difference.', 'Windy City Baseball & Softball',
                 'Support player development, equipment, training, and travel. This is an illustrative demo campaign.',
                 'Grand Prize Package', 'Add your real prize photos, descriptions, terms and drawing details in the admin dashboard.',
-                2500000, 'active', '2027-12-15T20:00', '2027-12-16T19:00',
+                2500000, 'active', '2026-12-15T20:00', '2026-12-16T19:00',
                 'DEMO ONLY. Example campaign with simulated payments and fictional entries. Not an offer to sell raffle tickets. '
                 'Before any real campaign, insert the official rules, eligibility conditions, license information and any required disclosures.', now()))
             rid = db.execute('SELECT id FROM raffles WHERE slug=?', ('windy-city-team-fundraiser',)).fetchone()['id']
@@ -146,9 +146,9 @@ def init_db():
     with database() as db:
         for row in db.execute('SELECT * FROM raffles').fetchall():
             updates = {}
-            for key in ('title', 'subtitle', 'description', 'prize_title', 'prize_description', 'rules', 'license_note'):
+            for key in ('title', 'subtitle', 'description', 'prize_title', 'prize_description', 'rules', 'license_note', 'closes_at', 'draw_at'):
                 value = row[key]
-                updated = value.replace('Fundraisers', 'Raffles').replace('fundraisers', 'raffles').replace('FUNDRAISERS', 'RAFFLES').replace('Fundraiser', 'Raffle').replace('fundraiser', 'raffle').replace('FUNDRAISER', 'RAFFLE')
+                updated = value.replace('2025', '2026').replace('2027', '2026').replace('Fundraisers', 'Raffles').replace('fundraisers', 'raffles').replace('FUNDRAISERS', 'RAFFLES').replace('Fundraiser', 'Raffle').replace('fundraiser', 'raffle').replace('FUNDRAISER', 'RAFFLE')
                 if updated != value:
                     updates[key] = updated
             if updates:
