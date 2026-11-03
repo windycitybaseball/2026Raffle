@@ -193,8 +193,10 @@ async def security_headers(request: Request, call_next):
 @app.get('/', response_class=HTMLResponse)
 def home(request: Request):
     with database() as db:
-        raffles = db.execute("SELECT * FROM raffles WHERE status != 'archived' ORDER BY id DESC").fetchall()
-    return page(request,'home.html',raffles=raffles)
+        raffle = db.execute("SELECT slug FROM raffles WHERE status != 'archived' ORDER BY id DESC LIMIT 1").fetchone()
+    if raffle:
+        return raffle_page(request, raffle['slug'])
+    return page(request,'home.html',raffles=[])
 
 @app.get('/r/{slug}', response_class=HTMLResponse)
 def raffle_page(request: Request, slug: str):
